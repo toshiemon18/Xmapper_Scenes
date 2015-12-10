@@ -9,6 +9,10 @@ class ofApp : public ofBaseApp{
 		void update();
 		void draw();
 	
+	private:
+		void configureSpherePositions();
+	
 		ofColor xmasSpheresColor[3];
 		ofVec2f spherePositionVec[6];
+	
 };
