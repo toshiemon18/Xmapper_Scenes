@@ -2,6 +2,26 @@
 
 #include "ofMain.h"
 
+namespace Xmapper {
+	class Sphere {
+		public:
+			double radius = 5;
+			bool spereDrawingFlag = false;
+			ofColor sphereColor;
+			ofVec2f spherePositionVec;
+		
+			void set(ofColor c, ofVec2f v) {
+				sphereColor = c;
+				spherePositionVec = v;
+			};
+		
+		private:
+			void update(float update_val=3) {
+				radius += update_val;
+			};
+	};
+}
+
 class ofApp : public ofBaseApp{
 
 	public:
@@ -10,9 +30,11 @@ class ofApp : public ofBaseApp{
 		void draw();
 	
 	private:
-		void configureSpherePositions();
+		void configureSpheres();
 	
-		ofColor xmasSpheresColor[3];
-		ofVec2f spherePositionVec[6];
+		const int DefaultValueRadius = 10;
+		const int MaxRadius = 60;
+		ofColor spheresColor[3];
+		Xmapper::Sphere sphere[6];
 	
 };
