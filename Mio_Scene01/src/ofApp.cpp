@@ -25,7 +25,7 @@ void ofApp::update(){
 			if (sphere[i].sphereDrawingFlag) {
 				sphere[i].update();
 				if (sphere[i].radius >= 45) {
-					
+					sphere[i + 1].sphereDrawingFlag = true;
 				}
 			}
 		}
