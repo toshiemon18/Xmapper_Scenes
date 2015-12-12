@@ -40,6 +40,9 @@ void ofApp::draw(){
 	
 }
 
+//--------------------------------------------------------------
+// 玉飾りの個数分設定をする
+// 配列の要素1番目のsphereDrawingFlagをtrueにする
 void ofApp::configureSpheres() {
 	// Generate sphere positions
 	for (int i = 0; i < SPHERE_NUM; i++) {
@@ -60,10 +63,17 @@ void ofApp::configureSpheres() {
 	}
 }
 
+//--------------------------------------------------------------
+// すべての玉飾りが描画されたならリセットフラグをtrueにして返す
 bool ofApp::isSphereUpdate() {
-	bool reset_frag = true;
+	bool reset_frag = false;
 	for (int i = 0; i < SPHERE_NUM; i++) {
-		reset_frag = reset_frag & sphere[i].sphereDrawingFlag;
+		if (sphere[i].radius >= MaxRadius && sphere[i].sphereDrawingFlag) {
+			reset_frag = true;
+		}
+		else {
+			false;
+		}
 	}
 	
 	return reset_frag;
