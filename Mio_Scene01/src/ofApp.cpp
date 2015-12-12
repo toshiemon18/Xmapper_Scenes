@@ -16,6 +16,9 @@ void ofApp::setup(){
 }
 
 //--------------------------------------------------------------
+// isSphereUpdateがtrue返してきたらconfigureSpheresを呼び出す
+// そうじゃなかったら直径を更新する
+// i番目の玉飾りの直径が45を超えたらi+1番目の玉飾りの描画フラグを立てる
 void ofApp::update(){
 	if (isSphereUpdate()) {
 		configureSpheres();
@@ -24,7 +27,7 @@ void ofApp::update(){
 		for (int i = 0; i < SPHERE_NUM; i++) {
 			if (sphere[i].sphereDrawingFlag) {
 				sphere[i].update();
-				if (sphere[i].radius >= 45) {
+				if (sphere[i].radius >= 45 && i != SPHERE_NUM - 1) {
 					sphere[i + 1].sphereDrawingFlag = true;
 				}
 			}
