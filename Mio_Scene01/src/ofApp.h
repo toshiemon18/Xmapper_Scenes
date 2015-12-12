@@ -6,7 +6,7 @@ namespace Xmapper {
 	class Sphere {
 		public:
 			double radius = 5;
-			bool spereDrawingFlag = false;
+			bool sphereDrawingFlag = false;
 			ofColor sphereColor;
 			ofVec2f spherePositionVec;
 		
@@ -31,10 +31,11 @@ class ofApp : public ofBaseApp{
 	
 	private:
 		void configureSpheres();
+		void isSphereUpdate();
 	
+		const int SPHERE_NUM = 6;
 		const int DefaultValueRadius = 10;
 		const int MaxRadius = 60;
 		ofColor spheresColor[3];
 		Xmapper::Sphere sphere[6];
-	
 };

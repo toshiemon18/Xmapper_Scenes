@@ -18,16 +18,18 @@ void ofApp::setup(){
 //--------------------------------------------------------------
 void ofApp::update(){
 	
+	
+	
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-
+	
 }
 
 void ofApp::configureSpheres() {
 	// Generate sphere positions
-	for (int i = 0; i < 6; i++) {
+	for (int i = 0; i < SPHERE_NUM; i++) {
 		int n = i / 2;
 		float x = ofRandom(-(1 + n) / 4 * ofGetWidth(), (1 + n) / 4 * ofGetWidth());
 		float y = ofRandom((1 + n) / 6 * ofGetHeight(), (1 + n) / 3 * ofGetHeight());
@@ -36,11 +38,19 @@ void ofApp::configureSpheres() {
 	}
 	
 	// Shuffle ofVec2f array elements
-	int n = sizeof(sphere) / sizeof(sphere[0]);
-	for (int i = 0; i < n; i++) {
+	for (int i = 0; i < SPHERE_NUM; i++) {
 		int j = ofRandom(6);
 		Xmapper::Sphere tmp = sphere[i];
 		sphere[i] = sphere[j];
 		sphere[j] = tmp;
 	}
+}
+
+void ofApp::isSphereUpdate() {
+	bool reset_frag = true;
+	for (int i = 0; i < SPHERE_NUM; i++) {
+		reset_frag = reset_frag & sphere[i].sphereDrawingFlag;
+	}
+	
+	return reset_frag;
 }
