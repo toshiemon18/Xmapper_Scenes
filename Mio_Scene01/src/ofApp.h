@@ -31,7 +31,7 @@ class ofApp : public ofBaseApp{
 	
 	private:
 		void configureSpheres();
-		void isSphereUpdate();
+		bool isSphereUpdate();
 	
 		const int SPHERE_NUM = 6;
 		const int DefaultValueRadius = 10;

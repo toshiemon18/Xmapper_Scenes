@@ -17,9 +17,19 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
-	
-	
-	
+	if (isSphereUpdate()) {
+		configureSpheres();
+	}
+	else {
+		for (int i = 0; i < SPHERE_NUM; i++) {
+			if (sphere[i].sphereDrawingFlag) {
+				sphere[i].update();
+				if (sphere[i].radius >= 45) {
+					
+				}
+			}
+		}
+	}
 }
 
 //--------------------------------------------------------------
@@ -35,6 +45,7 @@ void ofApp::configureSpheres() {
 		float y = ofRandom((1 + n) / 6 * ofGetHeight(), (1 + n) / 3 * ofGetHeight());
 		ofVec2f v(x, y);
 		sphere[i].set(spheresColor[(int)ofRandomf()%3], v);
+		if (i == 0) { sphere[i].sphereDrawingFlag = true; }
 	}
 	
 	// Shuffle ofVec2f array elements
@@ -46,7 +57,7 @@ void ofApp::configureSpheres() {
 	}
 }
 
-void ofApp::isSphereUpdate() {
+bool ofApp::isSphereUpdate() {
 	bool reset_frag = true;
 	for (int i = 0; i < SPHERE_NUM; i++) {
 		reset_frag = reset_frag & sphere[i].sphereDrawingFlag;
