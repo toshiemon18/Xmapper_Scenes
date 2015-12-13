@@ -6,16 +6,20 @@ namespace Xmapper {
 	class Sphere {
 		public:
 			double radius = 5;
-			bool sphereDrawingFlag = false;
+			bool sphereDrawingFlag = true;
 			ofColor sphereColor;
-			ofVec2f spherePositionVec;
+			ofPoint spherePosition;
 		
 			void set(ofColor c, ofVec2f v) {
 				sphereColor = c;
-				spherePositionVec = v;
+				spherePosition = v;
 			};
-			void update(float update_val=3) {
+			void update(float update_val=0.3) {
 				radius += update_val;
+			};
+			void draw() {
+				ofSetColor(sphereColor);
+				ofCircle(spherePosition, radius);
 			};
 	};
 }

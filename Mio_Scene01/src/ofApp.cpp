@@ -4,6 +4,7 @@
 void ofApp::setup(){
 	// General settring
 	ofEnableSmoothing();
+	ofSetCircleResolution(64);
 	ofBackground(0, 109, 0);
 	
 	// Set sphere colors
@@ -21,7 +22,7 @@ void ofApp::setup(){
 // i番目の玉飾りの直径が45を超えたらi+1番目の玉飾りの描画フラグを立てる
 void ofApp::update(){
 	if (isSphereUpdate()) {
-		configureSpheres();
+//		configureSpheres();
 	}
 	else {
 		for (int i = 0; i < SPHERE_NUM; i++) {
@@ -38,6 +39,14 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
 	
+	ofTranslate(ofGetWidth() / 2.0, 0);
+	for (int i = 0; i < SPHERE_NUM; i++) {
+		if (sphere[i].sphereDrawingFlag) {
+			ofNoFill();
+			sphere[i].draw();
+		}
+	}
+	
 }
 
 //--------------------------------------------------------------
@@ -49,8 +58,10 @@ void ofApp::configureSpheres() {
 		int n = i / 2;
 		float x = ofRandom(-(1 + n) / 4 * ofGetWidth(), (1 + n) / 4 * ofGetWidth());
 		float y = ofRandom((1 + n) / 6 * ofGetHeight(), (1 + n) / 3 * ofGetHeight());
-		ofVec2f v(x, y);
+		ofPoint v(x, y);
 		sphere[i].set(spheresColor[(int)ofRandomf()%3], v);
+		sphere[i].radius = DefaultValueRadius;
+		sphere[i].sphereDrawingFlag = false;
 		if (i == 0) { sphere[i].sphereDrawingFlag = true; }
 	}
 	
