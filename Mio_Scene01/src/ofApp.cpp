@@ -21,24 +21,24 @@ void ofApp::setup(){
 // そうじゃなかったら直径を更新する
 // i番目の玉飾りの直径が45を超えたらi+1番目の玉飾りの描画フラグを立てる
 void ofApp::update(){
-	if (isSphereUpdate()) {
+//	if (isSphereUpdate()) {
 //		configureSpheres();
-	}
-	else {
+//	}
+//	else {
 		for (int i = 0; i < SPHERE_NUM; i++) {
 			if (sphere[i].sphereDrawingFlag) {
-				sphere[i].update();
+				if (sphere[i].radius <= MaxRadius) { sphere[i].update(); }
 				if (sphere[i].radius >= 45 && i != SPHERE_NUM - 1) {
 					sphere[i + 1].sphereDrawingFlag = true;
 				}
 			}
 		}
-	}
+//	}
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-	
+	ofPushMatrix();
 	ofTranslate(ofGetWidth() / 2.0, 0);
 	for (int i = 0; i < SPHERE_NUM; i++) {
 		if (sphere[i].sphereDrawingFlag) {
@@ -46,7 +46,7 @@ void ofApp::draw(){
 			sphere[i].draw();
 		}
 	}
-	
+	ofPopMatrix();
 }
 
 //--------------------------------------------------------------
@@ -56,8 +56,8 @@ void ofApp::configureSpheres() {
 	// Generate sphere positions
 	for (int i = 0; i < SPHERE_NUM; i++) {
 		int n = i / 2;
-		float x = ofRandom(-(1 + n) / 4 * ofGetWidth(), (1 + n) / 4 * ofGetWidth());
-		float y = ofRandom((1 + n) / 6 * ofGetHeight(), (1 + n) / 3 * ofGetHeight());
+		float x = ofRandom(-(1 + n) * ofGetWidth() / 4, (1 + n) * ofGetWidth() / 4);
+		float y = ofRandom((1 + n) * ofGetHeight() / 6, (1 + n) * ofGetHeight() / 3);
 		ofPoint v(x, y);
 		sphere[i].set(spheresColor[(int)ofRandomf()%3], v);
 		sphere[i].radius = DefaultValueRadius;
@@ -83,7 +83,7 @@ bool ofApp::isSphereUpdate() {
 			reset_frag = true;
 		}
 		else {
-			false;
+			reset_frag = false;
 		}
 	}
 	

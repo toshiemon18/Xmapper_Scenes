@@ -10,7 +10,7 @@ namespace Xmapper {
 			ofColor sphereColor;
 			ofPoint spherePosition;
 		
-			void set(ofColor c, ofVec2f v) {
+			void set(ofColor c, ofPoint v) {
 				sphereColor = c;
 				spherePosition = v;
 			};
