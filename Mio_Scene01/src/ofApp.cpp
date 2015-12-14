@@ -28,7 +28,7 @@ void ofApp::update(){
 		for (int i = 0; i < SPHERE_NUM; i++) {
 			if (sphere[i].sphereDrawingFlag) {
 				if (sphere[i].radius <= MaxRadius) { sphere[i].update(); }
-				if (sphere[i].radius >= 45 && i != SPHERE_NUM - 1) {
+				if (sphere[i].radius >= 10 && i != SPHERE_NUM - 1) {
 					sphere[i + 1].sphereDrawingFlag = true;
 				}
 			}
@@ -38,15 +38,15 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-	ofPushMatrix();
-	ofTranslate(ofGetWidth() / 2.0, 0);
 	for (int i = 0; i < SPHERE_NUM; i++) {
+		ofPushMatrix();
+		ofTranslate(ofGetWidth() / 2.0, 0);
 		if (sphere[i].sphereDrawingFlag) {
 			ofNoFill();
 			sphere[i].draw();
 		}
+		ofPopMatrix();
 	}
-	ofPopMatrix();
 }
 
 //--------------------------------------------------------------
@@ -56,12 +56,14 @@ void ofApp::configureSpheres() {
 	// Generate sphere positions
 	for (int i = 0; i < SPHERE_NUM; i++) {
 		int n = i / 2;
-		float x = ofRandom(-(1 + n) * ofGetWidth() / 4, (1 + n) * ofGetWidth() / 4);
-		float y = ofRandom((1 + n) * ofGetHeight() / 6, (1 + n) * ofGetHeight() / 3);
+		float width = ofGetWidth() / 4.0;
+		float height = ofGetHeight() - 150;
+		float x = ofRandom(-(1 + n) * width, (1 + n) * width);
+		float y = ofRandom((1 + n) * height / 6, (1 + n) * height / 3);
 		ofPoint v(x, y);
 		sphere[i].set(spheresColor[(int)ofRandomf()%3], v);
 		sphere[i].radius = DefaultValueRadius;
-		sphere[i].sphereDrawingFlag = false;
+		sphere[i].sphereDrawingFlag = true;
 		if (i == 0) { sphere[i].sphereDrawingFlag = true; }
 	}
 	

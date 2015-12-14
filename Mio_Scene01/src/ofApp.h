@@ -37,7 +37,7 @@ class ofApp : public ofBaseApp{
 	
 		const int SPHERE_NUM = 6;
 		const int DefaultValueRadius = 10;
-		const int MaxRadius = 60;
+		const int MaxRadius = 30;
 		ofColor spheresColor[3];
 		Xmapper::Sphere sphere[6];
 };
