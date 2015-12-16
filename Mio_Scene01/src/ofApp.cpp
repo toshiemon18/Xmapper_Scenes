@@ -28,7 +28,7 @@ void ofApp::update(){
 		for (int i = 0; i < SPHERE_NUM; i++) {
 			if (sphere[i].sphereDrawingFlag) {
 				if (sphere[i].radius <= MaxRadius) { sphere[i].update(); }
-				if (sphere[i].radius >= 10 && i != SPHERE_NUM - 1) {
+				if (sphere[i].radius >= 20 && i != SPHERE_NUM - 1) {
 					sphere[i + 1].sphereDrawingFlag = true;
 				}
 			}
@@ -54,26 +54,33 @@ void ofApp::draw(){
 // 配列の要素1番目のsphereDrawingFlagをtrueにする
 void ofApp::configureSpheres() {
 	// Generate sphere positions
-	for (int i = 0; i < SPHERE_NUM; i++) {
-		int n = i / 2;
-		float width = ofGetWidth() / 4.0;
-		float height = ofGetHeight() - 150;
-		float x = ofRandom(-(1 + n) * width, (1 + n) * width);
-		float y = ofRandom((1 + n) * height / 6, (1 + n) * height / 3);
-		ofPoint v(x, y);
-		sphere[i].set(spheresColor[(int)ofRandomf()%3], v);
-		sphere[i].radius = DefaultValueRadius;
-		sphere[i].sphereDrawingFlag = true;
-		if (i == 0) { sphere[i].sphereDrawingFlag = true; }
-	}
+	float width = ofGetWidth() / 2.0;
+	ofPoint p(ofRandom(-1/4*width, 0), ofRandom(1/6*ofGetHeight(), 1/3*ofGetHeight()));
+	sphere[0].set(spheresColor[(int)ofRandomf()%3], p);
+	sphere[0].sphereDrawingFlag = true;
+	
+	p.set(ofRandom(0, 1/4*width), ofRandom(1/6*ofGetHeight(), 1/3*ofGetHeight()));
+	sphere[1].set(spheresColor[(int)ofRandomf()%3], p);
+	
+	p.set(ofRandom(-1/2*width, 0), ofRandom(1/2*ofGetHeight(), 2/3*ofGetHeight()));
+	sphere[2].set(spheresColor[(int)ofRandomf()%3], p);
+	
+	p.set(ofRandom(0, 1/2*width), ofRandom(1/2*ofGetHeight(), 2/3*ofGetHeight()));
+	sphere[3].set(spheresColor[(int)ofRandomf()%3], p);
+	
+	p.set(ofRandom(-3/4*width, 0), ofRandom(5/6*ofGetHeight(), ofGetHeight() - 100));
+	sphere[4].set(spheresColor[(int)ofRandomf()%3], p);
+	
+	p.set(ofRandom(0, 3/4*width), ofRandom(5/6*ofGetHeight(), ofGetHeight() - 100));
+	sphere[5].set(spheresColor[(int)ofRandomf()%3], p);
 	
 	// Shuffle ofVec2f array elements
-	for (int i = 0; i < SPHERE_NUM; i++) {
-		int j = ofRandom(6);
-		Xmapper::Sphere tmp = sphere[i];
-		sphere[i] = sphere[j];
-		sphere[j] = tmp;
-	}
+//	for (int i = 0; i < SPHERE_NUM; i++) {
+//		int j = ofRandom(6);
+//		Xmapper::Sphere tmp = sphere[i];
+//		sphere[i] = sphere[j];
+//		sphere[j] = tmp;
+//	}
 }
 
 //--------------------------------------------------------------

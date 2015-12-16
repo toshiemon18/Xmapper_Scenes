@@ -5,8 +5,8 @@
 namespace Xmapper {
 	class Sphere {
 		public:
-			double radius = 5;
-			bool sphereDrawingFlag = true;
+			double radius = 10;
+			bool sphereDrawingFlag = false;
 			ofColor sphereColor;
 			ofPoint spherePosition;
 		
