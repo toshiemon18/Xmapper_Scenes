@@ -8,9 +8,9 @@ namespace Xmapper {
 			double radius = 10;
 			bool sphereDrawingFlag = false;
 			ofColor sphereColor;
-			ofPoint spherePosition;
+			ofVec2f spherePosition;
 		
-			void set(ofColor c, ofPoint v) {
+			void set(ofColor c, ofVec2f v) {
 				sphereColor = c;
 				spherePosition = v;
 			};
@@ -19,7 +19,7 @@ namespace Xmapper {
 			};
 			void draw() {
 				ofSetColor(sphereColor);
-				ofCircle(spherePosition, radius);
+				ofCircle(spherePosition.x, spherePosition.y, radius);
 			};
 	};
 }

@@ -21,32 +21,32 @@ void ofApp::setup(){
 // そうじゃなかったら直径を更新する
 // i番目の玉飾りの直径が45を超えたらi+1番目の玉飾りの描画フラグを立てる
 void ofApp::update(){
-//	if (isSphereUpdate()) {
-//		configureSpheres();
-//	}
-//	else {
+	if (isSphereUpdate()) {
+		configureSpheres();
+	}
+	else {
 		for (int i = 0; i < SPHERE_NUM; i++) {
 			if (sphere[i].sphereDrawingFlag) {
 				if (sphere[i].radius <= MaxRadius) { sphere[i].update(); }
-				if (sphere[i].radius >= 20 && i != SPHERE_NUM - 1) {
+				if (sphere[i].radius >= 10 && i != SPHERE_NUM - 1) {
 					sphere[i + 1].sphereDrawingFlag = true;
+				
 				}
 			}
 		}
-//	}
+	}
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
+	ofPushMatrix();
+	ofTranslate(ofGetWidth() / 2.0, 0);
 	for (int i = 0; i < SPHERE_NUM; i++) {
-		ofPushMatrix();
-		ofTranslate(ofGetWidth() / 2.0, 0);
 		if (sphere[i].sphereDrawingFlag) {
-			ofNoFill();
 			sphere[i].draw();
 		}
-		ofPopMatrix();
 	}
+	ofPopMatrix();
 }
 
 //--------------------------------------------------------------
@@ -54,33 +54,26 @@ void ofApp::draw(){
 // 配列の要素1番目のsphereDrawingFlagをtrueにする
 void ofApp::configureSpheres() {
 	// Generate sphere positions
-	float width = ofGetWidth() / 2.0;
-	ofPoint p(ofRandom(-1/4*width, 0), ofRandom(1/6*ofGetHeight(), 1/3*ofGetHeight()));
-	sphere[0].set(spheresColor[(int)ofRandomf()%3], p);
-	sphere[0].sphereDrawingFlag = true;
-	
-	p.set(ofRandom(0, 1/4*width), ofRandom(1/6*ofGetHeight(), 1/3*ofGetHeight()));
-	sphere[1].set(spheresColor[(int)ofRandomf()%3], p);
-	
-	p.set(ofRandom(-1/2*width, 0), ofRandom(1/2*ofGetHeight(), 2/3*ofGetHeight()));
-	sphere[2].set(spheresColor[(int)ofRandomf()%3], p);
-	
-	p.set(ofRandom(0, 1/2*width), ofRandom(1/2*ofGetHeight(), 2/3*ofGetHeight()));
-	sphere[3].set(spheresColor[(int)ofRandomf()%3], p);
-	
-	p.set(ofRandom(-3/4*width, 0), ofRandom(5/6*ofGetHeight(), ofGetHeight() - 100));
-	sphere[4].set(spheresColor[(int)ofRandomf()%3], p);
-	
-	p.set(ofRandom(0, 3/4*width), ofRandom(5/6*ofGetHeight(), ofGetHeight() - 100));
-	sphere[5].set(spheresColor[(int)ofRandomf()%3], p);
+	for (int i = 0; i < SPHERE_NUM; i++) {
+		int n = i / 2;
+		float width = ofGetWidth() / 2;
+		float height = ofGetHeight() - 150;
+		float x = ofRandom(-float(1 + n) / 4.0 * width, float(1 + n) / 4.0 * width);
+		float y = ofRandom(float(1 + n) / 6.0 * height, float(1 + n) / 3.0 * height);
+		ofPoint v(x, y);
+		sphere[i].set(spheresColor[(int)ofRandomf()%3], v);
+		sphere[i].radius = DefaultValueRadius;
+		sphere[i].sphereDrawingFlag = true;
+		if (i == 0) { sphere[i].sphereDrawingFlag = true; }
+	}
 	
 	// Shuffle ofVec2f array elements
-//	for (int i = 0; i < SPHERE_NUM; i++) {
-//		int j = ofRandom(6);
-//		Xmapper::Sphere tmp = sphere[i];
-//		sphere[i] = sphere[j];
-//		sphere[j] = tmp;
-//	}
+	for (int i = 0; i < SPHERE_NUM; i++) {
+		int j = ofRandom(6);
+		Xmapper::Sphere tmp = sphere[i];
+		sphere[i] = sphere[j];
+		sphere[j] = tmp;
+	}
 }
 
 //--------------------------------------------------------------
