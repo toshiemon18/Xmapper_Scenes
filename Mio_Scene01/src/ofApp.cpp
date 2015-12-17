@@ -22,7 +22,7 @@ void ofApp::setup(){
 // i番目の玉飾りの直径が45を超えたらi+1番目の玉飾りの描画フラグを立てる
 void ofApp::update(){
 	if (isSphereUpdate()) {
-		configureSpheres();
+//		configureSpheres();
 	}
 	else {
 		for (int i = 0; i < SPHERE_NUM; i++) {
@@ -57,9 +57,12 @@ void ofApp::configureSpheres() {
 	for (int i = 0; i < SPHERE_NUM; i++) {
 		int n = i / 2;
 		float width = ofGetWidth() / 2;
-		float height = ofGetHeight() - 150;
-		float x = ofRandom(-float(1 + n) / 4.0 * width, float(1 + n) / 4.0 * width);
+		float height = ofGetHeight();
+		float x; // = ofRandom(-float(1 + n) / 4.0 * width, float(1 + n) / 4.0 * width);
 		float y = ofRandom(float(1 + n) / 6.0 * height, float(1 + n) / 3.0 * height);
+		
+		if (i % 2 == 0) { x = ofRandom(i * 30, float(1 + n) / 4.0 * width); }
+		else { x = ofRandom(-float(1 + n) / 4.0 * width, (i/2.0) * 30); }
 		ofPoint v(x, y);
 		sphere[i].set(spheresColor[(int)ofRandomf()%3], v);
 		sphere[i].radius = DefaultValueRadius;

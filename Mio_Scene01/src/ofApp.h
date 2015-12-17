@@ -14,7 +14,7 @@ namespace Xmapper {
 				sphereColor = c;
 				spherePosition = v;
 			};
-			void update(float update_val=0.3) {
+			void update(float update_val=0.1) {
 				radius += update_val;
 			};
 			void draw() {
