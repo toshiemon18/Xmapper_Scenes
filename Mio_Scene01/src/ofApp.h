@@ -5,7 +5,7 @@
 namespace Xmapper {
 	class Sphere {
 		public:
-			double radius = 10;
+			double radius = 3;
 			bool sphereDrawingFlag = false;
 			ofColor sphereColor;
 			ofVec2f spherePosition;
@@ -14,7 +14,7 @@ namespace Xmapper {
 				sphereColor = c;
 				spherePosition = v;
 			};
-			void update(float update_val=0.1) {
+			void update(float update_val=0.3) {
 				radius += update_val;
 			};
 			void draw() {
@@ -34,10 +34,11 @@ class ofApp : public ofBaseApp{
 	private:
 		void configureSpheres();
 		bool isSphereUpdate();
+		void drawBaseTree();
 	
 		const int SPHERE_NUM = 6;
-		const int DefaultValueRadius = 10;
+		const int DefaultValueRadius = 3;
 		const int MaxRadius = 30;
-		ofColor spheresColor[3];
+		ofColor spheresColor[4];
 		Xmapper::Sphere sphere[6];
 };
