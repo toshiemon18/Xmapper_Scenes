@@ -30,7 +30,7 @@ void ofApp::update(){
 			if (sphere[i].sphereDrawingFlag) {
 				if (sphere[i].radius <= MaxRadius) { sphere[i].update(); }
 				if (sphere[i].radius >= 15 && i != SPHERE_NUM - 1) {
-					sphere[i + 1].sphereDrawingFlag = true;				
+					sphere[i + 1].sphereDrawingFlag = true;
 				}
 			}
 		}
@@ -67,7 +67,7 @@ void ofApp::configureSpheres() {
 		ofPoint v(x, y);
 		sphere[i].set(spheresColor[(int)ofRandom(100)%4], v);
 		sphere[i].radius = DefaultValueRadius;
-		sphere[i].sphereDrawingFlag = false;
+		sphere[i].sphereDrawingFlag = true;
 		if (i == 0) { sphere[i].sphereDrawingFlag = true; }
 	}
 	

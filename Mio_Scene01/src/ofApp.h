@@ -21,6 +21,9 @@ namespace Xmapper {
 				ofSetColor(sphereColor);
 				ofCircle(spherePosition.x, spherePosition.y, radius);
 			};
+			void reset() {
+				spherePosition.set(0, 0);
+			};
 	};
 }
 
