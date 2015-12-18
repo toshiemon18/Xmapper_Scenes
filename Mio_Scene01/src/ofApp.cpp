@@ -65,7 +65,7 @@ void ofApp::configureSpheres() {
 	for (int i = 0; i < SPHERE_NUM; i++) {
 		int n = i / 2;
 		float width = ofGetWidth() / 2;
-		float height = ofGetHeight() - 50;
+		float height = ofGetHeight() - 150;
 		float x; // = ofRandom(-float(1 + n) / 4.0 * width, float(1 + n) / 4.0 * width);
 		float y = ofRandom(float(1 + n) / 6.0 * height, float(1 + n) / 3.0 * height);
 		
