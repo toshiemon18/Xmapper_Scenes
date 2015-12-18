@@ -23,13 +23,20 @@ void ofApp::setup(){
 // i番目の玉飾りの直径が45を超えたらi+1番目の玉飾りの描画フラグを立てる
 void ofApp::update(){
 	if (isSphereUpdate()) {
+//		for (int i = 0; i < SPHERE_NUM; i++) {
+//			if (sphere[i].spherePosition.y < ofGetHeight()) {
+//				sphere[i].fall();
+//			}
+//		}
 		configureSpheres();
 	}
 	else {
 		for (int i = 0; i < SPHERE_NUM; i++) {
 			if (sphere[i].sphereDrawingFlag) {
-				if (sphere[i].radius <= MaxRadius) { sphere[i].update(); }
-				if (sphere[i].radius >= 15 && i != SPHERE_NUM - 1) {
+				if (sphere[i].radius < MaxRadius) {
+					sphere[i].update();
+				}
+				if (sphere[i].radius >= 15) {
 					sphere[i + 1].sphereDrawingFlag = true;
 				}
 			}
@@ -67,7 +74,7 @@ void ofApp::configureSpheres() {
 		ofPoint v(x, y);
 		sphere[i].set(spheresColor[(int)ofRandom(100)%4], v);
 		sphere[i].radius = DefaultValueRadius;
-		sphere[i].sphereDrawingFlag = true;
+		sphere[i].sphereDrawingFlag = false;
 		if (i == 0) { sphere[i].sphereDrawingFlag = true; }
 	}
 	
@@ -83,40 +90,45 @@ void ofApp::configureSpheres() {
 //--------------------------------------------------------------
 // すべての玉飾りが描画されたならリセットフラグをtrueにして返す
 bool ofApp::isSphereUpdate() {
-	bool reset_frag = false;
+	bool reset_flag = false;
 	for (int i = 0; i < SPHERE_NUM; i++) {
-		if (sphere[i].radius >= MaxRadius && sphere[i].sphereDrawingFlag) {
-			reset_frag = true;
+		if (sphere[i].radius > MaxRadius) {
+			reset_flag = true;
 		}
 		else {
-			reset_frag = false;
+			reset_flag = false;
 			break;
 		}
 	}
 	
-	return reset_frag;
+	return reset_flag;
 }
 
 //--------------------------------------------------------------
 // クリスマスツリー表示
 void ofApp::drawBaseTree() {
 	ofSetColor(0, 109, 0);
-	ofBeginShape();
-	ofVertex(ofGetWidth() / 2.0, 0);
+	float h_width = ofGetWidth() / 2.0;
+	float height = ofGetHeight() - 100;
+	ofPushMatrix();
+	ofTranslate(ofGetWidth() / 2.0, 0);
+		ofBeginShape();
+			ofVertex(0, 0);
+			ofVertex(-(1 / 3.0) * h_width, 1 / 3.0 * height);
+			ofVertex(-(1 / 6.0) * h_width, 1 / 3.0 * height);
 	
-	ofVertex((1 / 3.0) * ofGetWidth(), (1 / 3.0) * (ofGetHeight() - 100)); // A
-	ofVertex((1 / 3.0) * ofGetWidth() + 25, (1 / 3.0) * (ofGetHeight() - 100)); // C
+			ofVertex(-(2 / 3.0) * h_width, 2 / 3.0 * height);
+			ofVertex(-(1 / 3.0) * h_width, 2 / 3.0 * height);
 	
-	ofVertex((1 / 6.0) * ofGetWidth(), (2 / 3.0) * (ofGetHeight() - 100)); // E
-	ofVertex((1 / 6.0) * ofGetWidth() + 50, (2 / 3.0) * (ofGetHeight() - 100)); // G
+			ofVertex(-h_width, height);
+			ofVertex(h_width, height);
 	
-	ofVertex(0, ofGetHeight()); // I
-	ofVertex(ofGetWidth(), ofGetHeight()); // J
+			ofVertex(1 / 3.0 * h_width, 2 / 3.0 * height);
+			ofVertex(2 / 3.0 * h_width, 2 / 3.0 * height);
 	
-	ofVertex((5 / 6.0) * ofGetWidth() - 50, (2 / 3.0) * (ofGetHeight() - 100)); // H
-	ofVertex((5 / 6.0) * ofGetWidth(), (2 / 3.0) * (ofGetHeight() - 100)); // F
-	
-	ofVertex((2 / 3.0) * ofGetWidth() - 25, (1 / 3.0) * (ofGetHeight() - 100)); //D
-	ofVertex((2 / 3.0) * ofGetWidth(), (1 / 3.0) * (ofGetHeight() - 100)); // B
-	ofEndShape();
+			ofVertex(1 / 6.0 * h_width, 1 / 3.0 * height);
+			ofVertex(1 / 3.0 * h_width, 1 / 3.0 * height);
+			ofVertex(0, 0);
+		ofEndShape();
+	ofPopMatrix();
 }

@@ -11,15 +11,19 @@ namespace Xmapper {
 			ofVec2f spherePosition;
 		
 			void set(ofColor c, ofVec2f v) {
+				reset();
 				sphereColor = c;
 				spherePosition = v;
 			};
-			void update(float update_val=0.3) {
+			void update(float update_val=1.0) {
 				radius += update_val;
 			};
 			void draw() {
 				ofSetColor(sphereColor);
 				ofCircle(spherePosition.x, spherePosition.y, radius);
+			};
+			void fall(float y_disc=0.5) {
+				spherePosition.y -= y_disc;
 			};
 			void reset() {
 				spherePosition.set(0, 0);
