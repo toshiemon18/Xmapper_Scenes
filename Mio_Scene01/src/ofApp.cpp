@@ -22,10 +22,10 @@ void ofApp::setup(){
 // そうじゃなかったら直径を更新する
 // i番目の玉飾りの直径が45を超えたらi+1番目の玉飾りの描画フラグを立てる
 void ofApp::update(){
-//	if (isSphereUpdate()) {
-//		configureSpheres();
-//	}
-//	else {
+	if (isSphereUpdate()) {
+		configureSpheres();
+	}
+	else {
 		for (int i = 0; i < SPHERE_NUM; i++) {
 			if (sphere[i].sphereDrawingFlag) {
 				if (sphere[i].radius <= MaxRadius) { sphere[i].update(); }
@@ -34,7 +34,7 @@ void ofApp::update(){
 				}
 			}
 		}
-//	}
+	}
 }
 
 //--------------------------------------------------------------
@@ -90,6 +90,7 @@ bool ofApp::isSphereUpdate() {
 		}
 		else {
 			reset_frag = false;
+			break;
 		}
 	}
 	
