@@ -30,7 +30,8 @@ void ofApp::update(){
 		}
 		else {
 			for (int i = 0; i < SPHERE_NUM; i++) {
-				sphere[i].fall();
+				float fallenSpeed = 10.0;
+				sphere[i].fall(fallenSpeed);
 			}
 		}
 	}
@@ -75,8 +76,8 @@ void ofApp::configureSpheres() {
 		float x; // = ofRandom(-float(1 + n) / 4.0 * width, float(1 + n) / 4.0 * width);
 		float y = ofRandom(float(1 + n) / 6.0 * height, float(1 + n) / 3.0 * height);
 		
-		if (i % 2 == 0) { x = ofRandom(i * 35, float(1 + n) / 4.0 * width - 50); }
-		else { x = ofRandom(-float(1 + n) / 4.0 * width + 50, (i/2.0) * 30); }
+		if (i % 2 == 0) { x = ofRandom(i * 35, float(1 + n) / 6.0 * width - 50); }
+		else { x = ofRandom(-float(1 + n) / 6.0 * width + 50, (i/2.0) * 30); }
 		ofPoint v(x, y);
 		sphere[i].set(spheresColor[(int)ofRandom(100)%4], v);
 		sphere[i].radius = DefaultValueRadius;
