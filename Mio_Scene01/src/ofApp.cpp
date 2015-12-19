@@ -24,13 +24,15 @@ void ofApp::setup(){
 // i番目の玉飾りの直径が45を超えたらi+1番目の玉飾りの描画フラグを立てる
 void ofApp::update(){
 	if (isSphereUpdate()) {
-//		for (int i = 0; i < SPHERE_NUM; i++) {
-//			if (sphere[i].spherePosition.y < ofGetHeight()) {
-//				sphere[i].fall();
-//			}
-//		}
-		configureSpheres();
-		sphere[0].sphereDrawingFlag = true;
+		if (isFallen()) {
+			configureSpheres();
+			sphere[0].sphereDrawingFlag = true;
+		}
+		else {
+			for (int i = 0; i < SPHERE_NUM; i++) {
+				sphere[i].fall();
+			}
+		}
 	}
 	else {
 		for (int i = 0; i < SPHERE_NUM; i++) {
@@ -42,9 +44,6 @@ void ofApp::update(){
 					sphere[i + 1].sphereDrawingFlag = true;
 				}
 			}
-			printf("sphere[%d] flag = ", i);
-			printf(sphere[i].sphereDrawingFlag ? "true" : "false");
-			
 		}
 	}
 }
@@ -59,6 +58,8 @@ void ofApp::draw(){
 			sphere[i].draw();
 		}
 	}
+	ofSetColor(255);
+	ofRect(ofPoint(-ofGetWidth() / 2.0, ofGetHeight() - 100), ofGetWidth(), 100);
 	ofPopMatrix();
 }
 
@@ -70,7 +71,7 @@ void ofApp::configureSpheres() {
 	for (int i = 0; i < SPHERE_NUM; i++) {
 		int n = i / 2;
 		float width = ofGetWidth() / 2;
-		float height = ofGetHeight() - 150;
+		float height = ofGetHeight() - 200;
 		float x; // = ofRandom(-float(1 + n) / 4.0 * width, float(1 + n) / 4.0 * width);
 		float y = ofRandom(float(1 + n) / 6.0 * height, float(1 + n) / 3.0 * height);
 		
@@ -104,8 +105,17 @@ bool ofApp::isSphereUpdate() {
 			break;
 		}
 	}
-	
 	return reset_flag;
+}
+
+//--------------------------------------------------------------
+// 玉飾りが落ちきったか確認する
+bool ofApp::isFallen() {
+	bool fallen_flag = true;
+	for (int i = 0; i < SPHERE_NUM; i++) {
+		fallen_flag &= sphere[i].isOverHeight(ofGetHeight() - 100);
+	}
+	return fallen_flag;
 }
 
 //--------------------------------------------------------------
