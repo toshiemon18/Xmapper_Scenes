@@ -32,5 +32,6 @@ class ofApp : public ofBaseApp{
 		void drawTreeShadow();
 	
 		ofxBox2d world;
+		ofImage snow;
 		vector <ofPtr<Xmapper::XmapperSnow>> snows;
 };
