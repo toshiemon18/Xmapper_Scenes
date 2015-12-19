@@ -12,8 +12,10 @@ namespace Xmapper {
 				glPushMatrix();
 				glTranslatef(getPosition().x, getPosition().y, 0);
 				ofFill();
-				ofSetColor(snowColor);
+				ofSetColor(snowColor, 100);
 				ofCircle(0, 0, radius);
+				ofSetColor(snowColor, 150);
+				ofCircle(0, 0, radius * 0.8);
 				glPopMatrix();
 			};
 	};
