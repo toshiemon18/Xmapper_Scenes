@@ -1,6 +1,23 @@
 #pragma once
 
 #include "ofMain.h"
+#include "ofxBox2d.h"
+
+namespace Xmapper {
+	class XmapperSnow : public ofxBox2dCircle {
+		public:
+			ofColor snowColor = (255, 255, 255);
+			void draw() {
+				float radius = getRadius();
+				glPushMatrix();
+				glTranslatef(getPosition().x, getPosition().y, 0);
+				ofFill();
+				ofSetColor(snowColor);
+				ofCircle(0, 0, radius);
+				glPopMatrix();
+			};
+	};
+};
 
 class ofApp : public ofBaseApp{
 
@@ -8,17 +25,10 @@ class ofApp : public ofBaseApp{
 		void setup();
 		void update();
 		void draw();
-
-		void keyPressed(int key);
-		void keyReleased(int key);
-		void mouseMoved(int x, int y );
-		void mouseDragged(int x, int y, int button);
-		void mousePressed(int x, int y, int button);
-		void mouseReleased(int x, int y, int button);
-		void mouseEntered(int x, int y);
-		void mouseExited(int x, int y);
-		void windowResized(int w, int h);
-		void dragEvent(ofDragInfo dragInfo);
-		void gotMessage(ofMessage msg);
-		
+	
+		ofVec2f generatePositionParameters();
+		void drawTreeShadow();
+	
+		ofxBox2d world;
+		vector <ofPtr<Xmapper::XmapperSnow>> snows;
 };
