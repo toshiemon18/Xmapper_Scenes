@@ -15,6 +15,7 @@ void ofApp::setup(){
 	
 	// Set sphere position
 	configureSpheres();
+	sphere[0].sphereDrawingFlag = true;
 }
 
 //--------------------------------------------------------------
@@ -29,17 +30,21 @@ void ofApp::update(){
 //			}
 //		}
 		configureSpheres();
+		sphere[0].sphereDrawingFlag = true;
 	}
 	else {
 		for (int i = 0; i < SPHERE_NUM; i++) {
 			if (sphere[i].sphereDrawingFlag) {
-				if (sphere[i].radius < MaxRadius) {
+				if (sphere[i].radius <= MaxRadius) {
 					sphere[i].update();
 				}
-				if (sphere[i].radius >= 15) {
+				else {
 					sphere[i + 1].sphereDrawingFlag = true;
 				}
 			}
+			printf("sphere[%d] flag = ", i);
+			printf(sphere[i].sphereDrawingFlag ? "true" : "false");
+			
 		}
 	}
 }
@@ -75,7 +80,6 @@ void ofApp::configureSpheres() {
 		sphere[i].set(spheresColor[(int)ofRandom(100)%4], v);
 		sphere[i].radius = DefaultValueRadius;
 		sphere[i].sphereDrawingFlag = false;
-		if (i == 0) { sphere[i].sphereDrawingFlag = true; }
 	}
 	
 	// Shuffle ofVec2f array elements
