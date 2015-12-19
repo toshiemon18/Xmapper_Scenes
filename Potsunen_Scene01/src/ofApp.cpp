@@ -40,7 +40,7 @@ void ofApp::draw(){
 ofVec2f ofApp::generatePositionParameters() {
 	float x;
 	x = ofRandom(250, 550);
-	ofVec2f v(x, -50);
+	ofVec2f v(x, -60);
 	return v;
 }
 
