@@ -34,4 +34,5 @@ class ofApp : public ofBaseApp{
 		ofxBox2d world;
 		ofImage snow;
 		vector <ofPtr<Xmapper::XmapperSnow>> snows;
+		float currentSnowSqueres = 0.0;
 };

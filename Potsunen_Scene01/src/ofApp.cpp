@@ -1,4 +1,5 @@
 #include "ofApp.h"
+#include "vector"
 
 //--------------------------------------------------------------
 void ofApp::setup(){
@@ -19,14 +20,22 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
-	if (ofRandom(0, 100) < 5) {
-		float r = ofRandom(25, 40);
-		ofVec2f v = generatePositionParameters();
-		
-		snows.push_back(ofPtr<Xmapper::XmapperSnow>(new Xmapper::XmapperSnow));
-		snows.back().get() -> setPhysics(1.0, 0.5, 0.1);
-		snows.back().get() -> setVelocity(ofRandom(-2.0, 2.0), ofRandom(-2.0, 2.0));
-		snows.back().get() -> setup(world.getWorld(), v, r);
+	if (currentSnowSqueres < (ofGetWidth() * ofGetHeight()) - 100) {
+		if (ofRandom(0, 100) < 5) {
+			float r = ofRandom(25, 40);
+			ofVec2f v = generatePositionParameters();
+			
+			snows.push_back(ofPtr<Xmapper::XmapperSnow>(new Xmapper::XmapperSnow));
+			snows.back().get() -> setPhysics(1.0, 0.5, 0.1);
+			snows.back().get() -> setVelocity(ofRandom(-2.0, 2.0), ofRandom(-2.0, 2.0));
+			snows.back().get() -> setup(world.getWorld(), v, r);
+			
+			currentSnowSqueres += r * r * PI;
+		}
+	}
+	else {
+		snows.clear();
+		currentSnowSqueres = 0;
 	}
 	world.update();
 }
@@ -41,17 +50,46 @@ void ofApp::draw(){
 		snow.draw(p, size, size);
 	}
 	world.draw();
+	drawTreeShadow();
+	ofSetColor(255);
+	ofRect(ofPoint(0, ofGetHeight() - 100), ofGetWidth(), 100);
 }
 
 //--------------------------------------------------------------
 ofVec2f ofApp::generatePositionParameters() {
 	float x;
-	x = ofRandom(250, 550);
+	x = ofRandom(150, 650);
 	ofVec2f v(x, -70);
 	return v;
 }
 
 //--------------------------------------------------------------
 void ofApp::drawTreeShadow() {
+	ofFill();
+	ofSetColor(0);
+	float h_width = ofGetWidth() / 2.0;
+	float height = ofGetHeight() - 100;
 	
+	ofPushMatrix();
+	ofTranslate(ofGetWidth() / 2.0, 0);
+	ofBeginShape();
+		ofVertex(0, 0);
+		ofVertex(-h_width, 0);
+		ofVertex(-h_width, height);
+		ofVertex(-(1.0 / 3.0) * h_width, 2.0 / 3.0 * height);
+		ofVertex(-(2.0 / 3.0) * h_width, 2.0 / 3.0 * height);
+		ofVertex(-(1.0 / 6.0) * h_width, 1.0 / 3.0 * height);
+		ofVertex(-(1.0 / 3.0) * h_width, 1.0 / 3.0 * height);
+	ofEndShape();
+	
+	ofBeginShape();
+		ofVertex(0, 0);
+		ofVertex(h_width, 0);
+		ofVertex(h_width, height);
+		ofVertex((1.0 / 3.0) * h_width, 2.0 / 3.0 * height);
+		ofVertex((2.0 / 3.0) * h_width, 2.0 / 3.0 * height);
+		ofVertex((1.0 / 6.0) * h_width, 1.0 / 3.0 * height);
+		ofVertex((1.0 / 3.0) * h_width, 1.0 / 3.0 * height);
+	ofEndShape();
+	ofPopMatrix();
 }
